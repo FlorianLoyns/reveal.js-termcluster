@@ -1,0 +1,23 @@
+{
+  "name": "reveal.js-termcluster",
+  "version": "1.0.0",
+  "description": "Interactive word clouds for reveal.js — ideal as an advance organizer: show a topic's key terms, then tap a word to focus it. Authored as a simple weighted list.",
+  "keywords": "reveal, reveal.js, wordcloud, word-cloud, tag-cloud, advance-organizer, teaching, touch, smartboard, reveal-plugin, plugin",
+  "homepage": "https://github.com/florianloyns/reveal.js-termcluster",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/florianloyns/reveal.js-termcluster.git"
+  },
+  "main": "plugin/termcluster/termcluster.js",
+  "module": "plugin/termcluster/termcluster.esm.js",
+  "files": [
+    "plugin",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "reveal.js": ">=4.2"
+  },
+  "author": "Florian Loyns",
+  "license": "MIT"
+}

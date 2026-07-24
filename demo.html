@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TermCluster — Demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+<style>
+  .reveal .controls { color: #2C4A6E !important; }
+  .reveal.has-dark-background .controls { color: #fff !important; }
+  .reveal h1, .reveal h2, .reveal h3 { color: #2C4A6E; font-family: Inter, sans-serif; }
+  .reveal .lead { color: #6B7B7B; font-size: .68em; }
+</style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section>
+      <h2>TermCluster</h2>
+      <p class="lead">An interactive word cloud for reveal.js — a topic's key terms at a glance.<br>Tap a word to bring it into focus. Great as an advance organizer.</p>
+    </section>
+
+    <section>
+      <div class="termcluster" data-shape="circle" data-ellipticity="0.65">
+        14 Photosynthesis
+        9 Chlorophyll
+        8 Sunlight
+        7 Water
+        7 Carbon dioxide
+        6 Oxygen
+        6 Glucose
+        5 Leaf
+        5 Stomata
+        5 Energy
+        4 Light reaction
+        4 Calvin cycle
+        4 Chloroplast
+        4 Roots
+        4 Nutrients
+        3 ATP
+        3 Enzymes
+        3 Membrane
+        3 Pigments
+        3 Growth
+        2 Starch
+        2 NADPH
+        2 Thylakoid
+        2 Spectrum
+        2 Respiration
+      </div>
+    </section>
+
+    <section data-background-color="#16283F">
+      <div class="termcluster" data-shape="circle" data-ellipticity="0.65" data-colors="dark">
+        14 Photosynthesis
+        9 Chlorophyll
+        8 Sunlight
+        7 Water
+        7 Carbon dioxide
+        6 Oxygen
+        6 Glucose
+        5 Leaf
+        5 Stomata
+        5 Energy
+        4 Light reaction
+        4 Calvin cycle
+        4 Chloroplast
+        4 Roots
+        4 Nutrients
+        3 ATP
+        3 Enzymes
+        3 Membrane
+        3 Pigments
+        3 Growth
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer style="position:fixed;left:0;right:0;bottom:6px;text-align:center;font-size:12px;font-family:system-ui,-apple-system,sans-serif;z-index:40;pointer-events:none;">
+  <a href="https://florianloyns.com/Impressum/" target="_blank" rel="noopener"
+     style="color:#8a99a8;text-decoration:none;pointer-events:auto;">Impressum</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<!-- bundled library first, then the plugin -->
+<script src="plugin/termcluster/vendor/wordcloud2.js"></script>
+<script src="plugin/termcluster/termcluster.js"></script>
+<script>
+  Reveal.initialize({ hash: true, plugins: [ RevealTermCluster ] });
+</script>
+</body>
+</html>
