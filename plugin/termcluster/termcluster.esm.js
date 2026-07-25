@@ -1,5 +1,5 @@
 /*!
- * reveal.js-termcluster 1.0.0
+ * reveal.js-termcluster 1.1.0
  * Interactive word clouds for reveal.js — great as an advance organizer:
  * show the key terms of a topic up front, then tap a word to bring it into focus.
  * Author words as a simple list (a leading number sets the size). Ships its own
@@ -12,7 +12,6 @@
  */
 
 'use strict';
-
 
   function injectCSS(){
     if (document.getElementById('termcluster-css')) return;
@@ -138,11 +137,18 @@
     stage.style.cssText = 'position:absolute;left:0;top:-10000px;visibility:hidden;width:' + W + 'px;height:' + H + 'px';
     document.body.appendChild(stage);
 
-    stage.addEventListener('wordcloudstop', function(){
+    /* Wörter übernehmen und Mess-Div entfernen. Der Timeout ist ein Fallback:
+       feuert wordcloudstop nie (Bibliothek bricht ab), bleibt sonst das
+       unsichtbare Div dauerhaft im DOM hängen. */
+    var finished = false;
+    function finish(){
+      if (finished) return; finished = true;
       while (stage.firstChild) cloud.appendChild(stage.firstChild);
       if (stage.parentNode) stage.parentNode.removeChild(stage);
       wireFocus(cloud, scheme.focus, scheme.dim);
-    }, { once:true });
+    }
+    stage.addEventListener('wordcloudstop', finish, { once:true });
+    setTimeout(finish, 8000);
 
     function paint(){
       window.WordCloud(stage, {
@@ -197,7 +203,10 @@
         injectCSS();
 
         function build(){
-          [].forEach.call(document.querySelectorAll('.termcluster'), function(cloud){ renderCloud(cloud, o); });
+          [].forEach.call(document.querySelectorAll('.termcluster'), function(cloud){
+            if (!cloud.getAttribute('data-tc-init')) cloud._tcTry = 0;   // jeder Anlauf bekommt frische Versuche
+            renderCloud(cloud, o);
+          });
         }
 
         /* nur sichtbare Wolken werden gerendert; renderCloud versucht es erneut,

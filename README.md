@@ -100,6 +100,15 @@ Reveal.initialize({
 });
 ```
 
+## Changelog
+
+**1.1.0**
+
+- Robustness: if the packing library never signals completion, the off-screen measuring element is cleaned up after a timeout instead of lingering in the DOM.
+- The render-retry counter resets on each build, so a slide that is slow to become measurable still gets a fair chance to render.
+
+**1.0.0** — initial release.
+
 ## Credits
 
 Packing by [wordcloud2.js](https://github.com/timdream/wordcloud2.js) © Tim Guan-tin Chien (MIT), bundled in `plugin/termcluster/vendor/`. Built for [reveal.js](https://revealjs.com) by Hakim El Hattab.
