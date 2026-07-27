@@ -117,6 +117,10 @@ Packing by [wordcloud2.js](https://github.com/timdream/wordcloud2.js) © Tim Gua
 
 Star the repo.
 
+## Imprint
+
+Responsible: Florian Loyns — [imprint & privacy notice](https://florianloyns.com/Impressum/) (German)
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
