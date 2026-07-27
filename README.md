@@ -14,6 +14,8 @@ A word cloud is a great **advance organizer** (Ausubel): before you dive into a 
 
 ## Installation
 
+**Requires** reveal.js 4.2 or newer. Tested with reveal.js 5.x.
+
 Copy the `termcluster` folder (including its `vendor/` subfolder) into your reveal.js `plugin/` folder — or install from npm.
 
 ```console
