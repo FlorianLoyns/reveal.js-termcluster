@@ -104,6 +104,8 @@ Reveal.initialize({
 
 ## Changelog
 
+**1.1.1** — Print detection unified across the plugin family: every print rule now applies both in the browser print dialog and in reveal’s `?print-pdf` view, so the on-screen preview looks like the PDF; the print view is recognised the same way everywhere (`?print-pdf` or `view: 'print'`).
+
 **1.1.0**
 
 - Robustness: if the packing library never signals completion, the off-screen measuring element is cleaned up after a timeout instead of lingering in the DOM.

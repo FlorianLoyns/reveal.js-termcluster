@@ -1,5 +1,5 @@
 /*!
- * reveal.js-termcluster 1.1.0
+ * reveal.js-termcluster 1.1.1
  * Interactive word clouds for reveal.js — great as an advance organizer:
  * show the key terms of a topic up front, then tap a word to bring it into focus.
  * Author words as a simple list (a leading number sets the size). Ships its own
@@ -17,12 +17,29 @@
 }(this, (function () {
   'use strict';
 
+  /* ---- Druck: überall gleich erkannt und gleich ausgegeben ----
+     reveal.js baut die Druckansicht mit ?print-pdf in der URL (oder view:'print'
+     in der Konfiguration) und setzt dann nur Klassen an <html>; @media print greift
+     erst im Druckdialog. Darum jede Druckregel zweimal: für den Druckdialog und
+     für die ?print-pdf-Ansicht – so sieht die Vorschau im Browser aus wie das PDF. */
+  function isPrintView(deck){
+    if (/(?:\?|&)print-pdf\b/i.test(window.location.search)) return true;
+    var c = deck && deck.getConfig ? deck.getConfig() : null;
+    return !!(c && c.view === 'print');
+  }
+  function printCSS(css){
+    var pdf = css.replace(/(^|\})([^{}]+)\{/g, function (m, vor, sel) {
+      return vor + sel.split(',').map(function (s) { return 'html.print-pdf ' + s.trim(); }).join(',') + '{';
+    });
+    return '@media print{' + css + '}' + pdf;
+  }
+
   function injectCSS(){
     if (document.getElementById('termcluster-css')) return;
     var css =
       ".reveal .termcluster{position:relative;width:1160px;max-width:100%;height:540px;margin:0 auto}"
     + ".reveal .termcluster span{line-height:1;-webkit-user-select:none;user-select:none}"
-    + "@media print{.reveal .termcluster span{color:#111 !important;opacity:1 !important;text-shadow:none !important}}";
+    + printCSS(".reveal .termcluster span{color:#111 !important;opacity:1 !important;text-shadow:none !important}");
     var s = document.createElement('style');
     s.id = 'termcluster-css'; s.textContent = css;
     document.head.appendChild(s);
