@@ -4,6 +4,13 @@
  *
  * Copyright 2011 - 2019 Tim Guan-tin Chien and contributors.
  * Released under the MIT license
+ *
+ * Modifications for reveal.js-termcluster (2026):
+ * - Seedable random number generation for reproducible layouts
+ * - Configurable per-word rotation probability
+ *
+ * Original project: https://github.com/timdream/wordcloud2.js
+ * Original MIT license text: see LICENSE in this directory.
  */
 
 'use strict'
@@ -158,9 +165,9 @@ if (!window.clearImmediate) {
   }
 
   // Based on http://jsfromhell.com/array/shuffle
-  var shuffleArray = function shuffleArray (arr) {
+  var shuffleArray = function shuffleArray (arr, random) {
     for (var j, x, i = arr.length; i;) {
-      j = Math.floor(Math.random() * i)
+      j = Math.floor(random() * i)
       x = arr[--i]
       arr[i] = arr[j]
       arr[j] = x
@@ -222,6 +229,7 @@ if (!window.clearImmediate) {
 
       shuffle: true,
       rotateRatio: 0.1,
+      random: Math.random,
 
       shape: 'circle',
       ellipticity: 0.65,
@@ -503,12 +511,14 @@ if (!window.clearImmediate) {
     }
 
     /* Get the deg of rotation according to settings, and luck. */
-    var getRotateDeg = function getRotateDeg () {
-      if (settings.rotateRatio === 0) {
+    var getRotateDeg = function getRotateDeg (word, weight) {
+      var ratio = (typeof settings.rotateRatio === 'function')
+        ? settings.rotateRatio(word, weight) : settings.rotateRatio
+      if (ratio === 0) {
         return 0
       }
 
-      if (Math.random() > settings.rotateRatio) {
+      if (settings.random() > ratio) {
         return 0
       }
 
@@ -519,10 +529,10 @@ if (!window.clearImmediate) {
       if (rotationSteps > 0) {
         // Min rotation + zero or more steps * span of one step
         return minRotation +
-          Math.floor(Math.random() * rotationSteps) *
+          Math.floor(settings.random() * rotationSteps) *
           rotationRange / (rotationSteps - 1)
       } else {
-        return minRotation + Math.random() * rotationRange
+        return minRotation + settings.random() * rotationRange
       }
     }
 
@@ -927,7 +937,7 @@ if (!window.clearImmediate) {
         weight = item.weight
         attributes = item.attributes
       }
-      var rotateDeg = getRotateDeg()
+      var rotateDeg = getRotateDeg(word, weight)
 
       var extraDataArray = getItemExtraData(item)
 
@@ -986,7 +996,7 @@ if (!window.clearImmediate) {
 
         if (settings.shuffle) {
           points = [].concat(points)
-          shuffleArray(points)
+          shuffleArray(points, settings.random)
         }
 
         // Try to fit the words by looking at each point.
